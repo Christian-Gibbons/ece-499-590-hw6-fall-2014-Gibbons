@@ -205,13 +205,17 @@ while True:
 		errXL, errYL = errorL
 		errXR, errYR = errorR
 		centerX, centerY = center_screen
+		#find the angle at which the object resides for each camera
 		thetaL = (float(errXL-centerX)/float(newx)) * 1.047
 		thetaR = (float(errXR-centerX)/float(newx)) * 1.047
+		#find where in the projection each camera sees the object
 		uL = f*sin(thetaL)/sin(3.14 + thetaL)
 		uR = f*sin(thetaR)/sin(3.14 + thetaR)
+		#get the disparity between the two and scale by pixel_size
 		disparity = (uL - uR)/pixel_size
+		#use the focal distance and the baseline separation between the cameras and the disparaity to get depth
 		depth = f*b/disparity
-		print "depth: ", depth
+		print "depth: ", depth, "m"
 	time.sleep(0.1)   
 #-----------------------------------------------------
 #-----------------------------------------------------
